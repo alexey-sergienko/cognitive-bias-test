@@ -1,0 +1,41 @@
+<div class="tile is-ancestor" style="margin-top: 5%">
+  <div class="tile is-vertical is-8">
+    <!--Reference image-->
+    <div class="tile" [style]="referenceImageVisible ? '' : 'visibility:hidden'">
+      <div class="tile is-parent is-vertical"></div>
+      <div class="tile is-parent">
+        <article class="tile is-child">
+          <figure class="image ">
+            <img src="assets/gif/{{referenceImage}}">
+          </figure>
+        </article>
+      </div>
+    </div>
+
+    <!--Top candidate-->
+    <div class="tile" [style]="candidateImagesVisible ? '' : 'visibility:hidden'" style="margin-top: 5%">
+      <div class="tile is-parent is-vertical"></div>
+      <div class="tile is-parent">
+        <article class="tile is-child">
+          <figure class="image ">
+            <img src="assets/gif/{{topCandidate}}">
+          </figure>
+        </article>
+      </div>
+    </div>
+
+    <!--Bottom candidate-->
+    <div class="tile" [style]="candidateImagesVisible ? '' : 'visibility:hidden'">
+      <div class="tile is-parent is-vertical"></div>
+      <div class="tile is-parent">
+        <article class="tile is-child">
+          <figure class="image ">
+            <img src="assets/gif/{{bottomCandidate}}">
+          </figure>
+        </article>
+      </div>
+    </div>
+
+  </div>
+  <div class="tile is-parent"></div>
+</div>

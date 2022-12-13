@@ -1,0 +1,125 @@
+<form (ngSubmit)="submitUserInfo(f)" #f="ngForm">
+  <div class="container">
+    <br/>
+    <article class="message">
+      <div class="message-header">
+        <p>General information</p>
+      </div>
+      <div class="message-body">
+        <div class="columns">
+          <div class="column">
+            <label class="label">Имя:</label>
+            <div class="control">
+              <input class="input" type="text" required [minLength]="1" ngModel name="firstName">
+            </div>
+          </div>
+          <div class="column">
+            <label class="label">Фамилия:</label>
+            <div class="control">
+              <input class="input" type="text" required [minLength]="1" ngModel name="lastName">
+            </div>
+          </div>
+        </div>
+        <div class="columns">
+          <div class="column">
+            <label class="label">Возраст:</label>
+            <div class="control">
+              <input class="input" type="number" required [min]="'0'" ngModel name="age">
+            </div>
+          </div>
+          <div class="column">
+            <label class="label">Общее количество лет образования:</label>
+            <div class="control">
+              <input class="input" type="number" required [min]="'0'" ngModel name="years_of_education">
+            </div>
+          </div>
+        </div>
+        <div>
+          <label class="label">Пол:</label>
+          <fieldset id="gender" class="control">
+            <label class="radio">
+              <input type="radio" value="male" required ngModel name="gender">
+              Мужской
+            </label>
+            <label class="radio">
+              <input type="radio" value="female" required ngModel name="gender">
+              Женский
+            </label>
+          </fieldset>
+        </div>
+      </div>
+    </article>
+
+    <article class="message">
+      <div class="message-header">
+        <p>Семья</p>
+      </div>
+      <div class="message-body">
+        <div>
+          <label class="label">Ваш отец левша?</label>
+          <fieldset id="isFatherLeftHanded" class="control">
+            <label class="radio">
+              <input type="radio" value="true" required ngModel name="isFatherLeftHanded">
+              Да
+            </label>
+            <label class="radio">
+              <input type="radio" value="false" required ngModel name="isFatherLeftHanded">
+              Нет
+            </label>
+          </fieldset>
+        </div>
+        <div>
+          <label class="label">Ваша мать левша?</label>
+          <fieldset id="isMotherLeftHanded" class="control">
+            <label class="radio">
+              <input type="radio" value="true" required ngModel name="isMotherLeftHanded">
+              Да
+            </label>
+            <label class="radio">
+              <input type="radio" value="false" required ngModel name="isMotherLeftHanded">
+              Нет
+            </label>
+          </fieldset>
+        </div>
+
+        <div class="columns">
+          <div class="column">
+            <label class="label">Сколько у Вас братьев?</label>
+            <div class="control">
+              <input class="input" type="number" required [min]="'0'" ngModel name="brother_count">
+            </div>
+          </div>
+          <div class="column">
+            <label class="label">Сколько из них левши?</label>
+            <div class="control">
+              <input class="input" type="number" required [min]="'0'" ngModel name="left_handed_brother_count">
+            </div>
+          </div>
+        </div>
+
+        <div class="columns">
+          <div class="column">
+            <label class="label">Сколько у Вас сестер?</label>
+            <div class="control">
+              <input class="input" type="number" required [min]="'0'" ngModel name="sister_count">
+            </div>
+          </div>
+          <div class="column">
+            <label class="label">Сколько из них левши?</label>
+            <div class="control">
+              <input class="input" type="number" required [min]="'0'" ngModel name="left_handed_sister_count">
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <br/>
+
+    <div class="has-text-centered">
+      <input type="submit" class="button" value="Далее">
+    </div>
+    <br/>
+
+  </div>
+</form>
