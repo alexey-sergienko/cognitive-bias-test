@@ -1,4 +1,4 @@
 # Cognitive Bias Test
 
 This is a browser-based implementation of the Cognitive Bias Test software.  
-12345
+An adapted and modified version of the test by Goldberg E. et al.
