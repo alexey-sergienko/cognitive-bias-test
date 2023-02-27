@@ -524,10 +524,12 @@ export class GameSessionService {
       this.stageSubject.next(this.stages[this.currentStage]);
     } else {
       this.storageService.saveResult({
+        date: new Date().toISOString().split('T')[0],
         userInfo: this.userInfoService.get()!,
         minPossibleBias: this.minCognitiveBias(),
         maxPossibleBias: this.maxCognitiveBias(),
-        cognitiveBias: this.cognitiveBiasSum()
+        cognitiveBias: this.cognitiveBiasSum(),
+        responses: this.responses
       })
 
       this.stageSubject.complete();

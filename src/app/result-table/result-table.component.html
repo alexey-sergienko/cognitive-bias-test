@@ -1,6 +1,6 @@
 <div class="columns">
     <div class="column"><a class="button" routerLink="/start">Назад</a></div>
-    <div class="column"><a class="button" href="{{resultDownloadLink()}}" download="results.csv">Экспорт в CSV файл</a>
+    <div class="column"><a class="button" (click)="downloadResults()">Экспорт в CSV файл</a>
     </div>
 </div>
 <div class="columns">
@@ -25,6 +25,8 @@
                 <td>{{r.minPossibleBias}}</td>
                 <td>{{r.maxPossibleBias}}</td>
                 <td>{{r.cognitiveBias}}</td>
+                <th><a class="button is-primary" (click)="downloadResponses(r)">Загрузить ответы</a>
+                </th>
             </tr>
             </tbody>
         </table>

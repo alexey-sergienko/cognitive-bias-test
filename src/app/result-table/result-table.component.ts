@@ -18,6 +18,7 @@ import {Component, OnInit} from '@angular/core';
 import {LocalStorageService} from "../local-storage.service";
 import {TestResult} from "../model/result";
 import {ResultExportService} from "../result-export.service";
+import {saveAs} from 'file-saver';
 
 @Component({
     selector: 'app-result-table',
@@ -36,8 +37,14 @@ export class ResultTableComponent implements OnInit {
         return this.storage.getResults()
     }
 
-    resultDownloadLink(): any {
-        return encodeURI(this.exportService.toCSV(this.getResults()))
+    downloadResults() {
+        let blob = new Blob([this.exportService.toCSV(this.getResults())], {type: "text/plain;charset=utf-8"})
+        saveAs(blob, `${new Date().toISOString().split("T"[0])}.csv`)
+    }
+
+    downloadResponses(result: TestResult) {
+        let blob = new Blob([this.exportService.responsesToCSV(result.responses)], {type: "text/plain;charset=utf-8"})
+        saveAs(blob, `${result.date}_${result.userInfo.firstName}_${result.userInfo.lastName}.csv`)
     }
 
     deleteResults() {

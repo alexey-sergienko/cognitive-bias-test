@@ -15,27 +15,31 @@
  */
 
 export interface InfoStage {
-  text: string
+    text: string
 }
 
 export function isInfoStage(o: any): o is InfoStage {
-  return 'text' in o
+    return 'text' in o
 }
 
 export interface Stage {
-  index: number,
-  referenceImage: string
-  topCandidate: CandidateImage
-  bottomCandidate: CandidateImage
-  recordResponse: boolean // Determines whether the stage response will be recorded. Useful for "dry run" stages.
+    index: number,
+    referenceImage: string
+    topCandidate: CandidateImage
+    bottomCandidate: CandidateImage
+    recordResponse: boolean // Determines whether the stage response will be recorded. Useful for "dry run" stages.
 }
 
 export interface CandidateImage {
-  path: string,
-  match: number
+    path: string,
+    match: number
 }
 
 export interface StageResponse {
-  top: boolean;
-  match: number;
+    top: boolean;
+    match: number;
+    stageIndex: number;
+    referenceImage: string;
+    topImage: string;
+    bottomImage: string;
 }

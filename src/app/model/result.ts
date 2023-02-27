@@ -15,10 +15,13 @@
  */
 
 import {UserInfo} from "./userInfo";
+import {StageResponse} from "./stage";
 
 export interface TestResult {
+  date: string,
   userInfo: UserInfo,
   minPossibleBias: number,
   maxPossibleBias: number,
   cognitiveBias: number
+  responses: StageResponse[]
 }

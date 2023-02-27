@@ -21,83 +21,104 @@ import {Subscription, timer} from "rxjs";
 import {Router} from "@angular/router";
 
 @Component({
-  selector: 'app-picture-loop',
-  templateUrl: './picture-loop.component.html',
-  styleUrls: ['./picture-loop.component.css']
+    selector: 'app-picture-loop',
+    templateUrl: './picture-loop.component.html',
+    styleUrls: ['./picture-loop.component.css']
 })
 export class PictureLoopComponent implements OnInit, OnDestroy {
-  infoStage: InfoStage | null;
-  pictureStage: Stage | null;
-  stageResponseSubmitted: boolean;
+    infoStage: InfoStage | null;
+    pictureStage: Stage | null;
+    stageResponseSubmitted: boolean;
 
-  showReference: boolean = false;
-  showCandidates: boolean = false;
+    showReference: boolean = false;
+    showCandidates: boolean = false;
 
-  private stageSubscription: Subscription | null;
+    private stageSubscription: Subscription | null;
 
-  constructor(private gameSession: GameSessionService, private router: Router) {
-    this.infoStage = null;
-    this.pictureStage = null;
-    this.stageResponseSubmitted = false;
-    this.stageSubscription = null;
-  }
+    constructor(private gameSession: GameSessionService, private router: Router) {
+        this.infoStage = null;
+        this.pictureStage = null;
+        this.stageResponseSubmitted = false;
+        this.stageSubscription = null;
+    }
 
-  ngOnInit(): void {
-    this.gameSession.reset();
+    ngOnInit(): void {
+        this.gameSession.reset();
 
-    this.stageSubscription = this.gameSession.stage().subscribe(
-      (s: Stage | InfoStage) => {
-        if (!isInfoStage(s)) {
-          this.infoStage = null;
-          this.pictureStage = s;
-          this.stageResponseSubmitted = false;
-          this.showReference = false;
-          this.showCandidates = false;
+        this.stageSubscription = this.gameSession.stage().subscribe(
+            (s: Stage | InfoStage) => {
+                if (!isInfoStage(s)) {
+                    this.infoStage = null;
+                    this.pictureStage = s;
+                    this.stageResponseSubmitted = false;
+                    this.showReference = false;
+                    this.showCandidates = false;
 
-          timer(1000).subscribe(() => {
-            this.showReference = !this.showReference;
-          })
-          timer(3000).subscribe(() => {
-            this.showCandidates = !this.showCandidates;
-          });
-        } else {
-          this.infoStage = s;
-          this.pictureStage = null;
+                    timer(1000).subscribe(() => {
+                        this.showReference = !this.showReference;
+                    })
+                    timer(3000).subscribe(() => {
+                        this.showCandidates = !this.showCandidates;
+                    });
+                } else {
+                    this.infoStage = s;
+                    this.pictureStage = null;
+                }
+            },
+            e => {
+                console.log("Error: " + e);
+            },
+            () => {
+                console.log("Game session completed. Navigating to completion screen.");
+                this.router.navigate(["/complete"])
+            }
+        );
+        this.gameSession.start();
+    }
+
+    ngOnDestroy(): void {
+        this.stageSubscription?.unsubscribe();
+    }
+
+    @HostListener('document:keydown', ['$event'])
+    handleKeyDownEvent(event: KeyboardEvent) {
+        let keyCode = event.code;
+
+        if (this.pictureStage !== null && !this.stageResponseSubmitted && this.showCandidates) {
+            switch (keyCode) {
+                case 'ArrowUp':
+                    this.gameSession.submitResponse({
+                        top: true,
+                        match: this.pictureStage!.topCandidate.match,
+                        stageIndex: this.pictureStage!.index,
+                        referenceImage: this.pictureStage!.referenceImage,
+                        topImage: this.pictureStage!.topCandidate.path,
+                        bottomImage: this.pictureStage!.bottomCandidate.path
+                    })
+                    break;
+                case 'ArrowDown':
+                    this.gameSession.submitResponse({
+                        top: false,
+                        match: this.pictureStage!.bottomCandidate.match,
+                        stageIndex: this.pictureStage!.index,
+                        referenceImage: this.pictureStage!.referenceImage,
+                        topImage: this.pictureStage!.topCandidate.path,
+                        bottomImage: this.pictureStage!.bottomCandidate.path
+                    })
+                    break;
+            }
         }
-      },
-      e => {
-        console.log("Error: " + e);
-      },
-      () => {
-        console.log("Game session completed. Navigating to completion screen.");
-        this.router.navigate(["/complete"])
-      }
-    );
-    this.gameSession.start();
-  }
 
-  ngOnDestroy(): void {
-    this.stageSubscription?.unsubscribe();
-  }
-
-  @HostListener('document:keydown', ['$event'])
-  handleKeyDownEvent(event: KeyboardEvent) {
-    let keyCode = event.code;
-
-    if (this.pictureStage !== null && !this.stageResponseSubmitted && this.showCandidates) {
-      switch (keyCode) {
-        case 'ArrowUp':
-          this.gameSession.submitResponse({top: true, match: this.pictureStage!.topCandidate.match})
-          break;
-        case 'ArrowDown':
-          this.gameSession.submitResponse({top: false, match: this.pictureStage!.bottomCandidate.match})
-          break;
-      }
+        if (this.infoStage !== null && keyCode === 'Space') {
+            this.gameSession.submitResponse({
+                top: false,
+                match: 0,
+                stageIndex: 0,
+                referenceImage: '',
+                topImage: '',
+                bottomImage: ''
+            })
+        }
     }
-
-    if (this.infoStage !== null && keyCode === 'Space') {
-      this.gameSession.submitResponse({top: false, match: 0})
-    }
-  }
 
 }
