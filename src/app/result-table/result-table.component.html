@@ -1,28 +1,33 @@
-<a class="button" routerLink="/start">Назад</a>
 <div class="columns">
-  <div class="column">
-    <table class="table">
-      <thead>
-      <tr>
-        <th>Имя</th>
-        <th>Фамилия</th>
-        <th>Возраст</th>
-        <th>Минимальное возможное значение CBT</th>
-        <th>Максимальное возможное значение CBT</th>
-        <th>Значение CBT в данной сессии</th>
-      </tr>
-      </thead>
-
-      <tbody>
-      <tr *ngFor="let r of getResults()">
-        <td>{{r.userInfo.firstName}}</td>
-        <td>{{r.userInfo.lastName}}</td>
-        <td>{{r.userInfo.age}}</td>
-        <td>{{r.minPossibleBias}}</td>
-        <td>{{r.maxPossibleBias}}</td>
-        <td>{{r.cognitiveBias}}</td>
-      </tr>
-      </tbody>
-    </table>
-  </div>
+    <div class="column"><a class="button" routerLink="/start">Назад</a></div>
+    <div class="column"><a class="button" href="{{resultDownloadLink()}}" download="results.csv">Экспорт в CSV файл</a>
+    </div>
 </div>
+<div class="columns">
+    <div class="column">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Имя</th>
+                <th>Фамилия</th>
+                <th>Возраст</th>
+                <th>Минимальное возможное значение CBT</th>
+                <th>Максимальное возможное значение CBT</th>
+                <th>Значение CBT в данной сессии</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr *ngFor="let r of getResults()">
+                <td>{{r.userInfo.firstName}}</td>
+                <td>{{r.userInfo.lastName}}</td>
+                <td>{{r.userInfo.age}}</td>
+                <td>{{r.minPossibleBias}}</td>
+                <td>{{r.maxPossibleBias}}</td>
+                <td>{{r.cognitiveBias}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="button is-danger" (click)="deleteResults()">Удалить результаты</div>

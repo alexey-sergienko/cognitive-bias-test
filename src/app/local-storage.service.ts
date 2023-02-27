@@ -18,28 +18,34 @@ import {Injectable} from '@angular/core';
 import {TestResult} from "./model/result";
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class LocalStorageService {
-  private STORAGE_KEY = 'TEST_RESULTS'
+    private STORAGE_KEY = 'TEST_RESULTS'
 
-  constructor() {
-  }
-
-  saveResult(result: TestResult) {
-    let values = []
-    if (localStorage.getItem(this.STORAGE_KEY)) {
-      values = JSON.parse(localStorage.getItem(this.STORAGE_KEY)!)
+    constructor() {
     }
-    values.push(result)
-    localStorage.setItem(this.STORAGE_KEY, JSON.stringify(values))
-  }
 
-  getResults(): TestResult[] {
-    if (localStorage.getItem(this.STORAGE_KEY)) {
-      return JSON.parse(localStorage.getItem(this.STORAGE_KEY)!)
+    saveResult(result: TestResult) {
+        let values = []
+        if (localStorage.getItem(this.STORAGE_KEY)) {
+            values = JSON.parse(localStorage.getItem(this.STORAGE_KEY)!)
+        }
+        values.push(result)
+        localStorage.setItem(this.STORAGE_KEY, JSON.stringify(values))
     }
-    return []
-  }
+
+    getResults(): TestResult[] {
+        if (localStorage.getItem(this.STORAGE_KEY)) {
+            return JSON.parse(localStorage.getItem(this.STORAGE_KEY)!)
+        }
+        return []
+    }
+
+    deleteResults() {
+        if (localStorage.getItem(this.STORAGE_KEY)) {
+            localStorage.setItem(this.STORAGE_KEY, JSON.stringify([]))
+        }
+    }
 
 }

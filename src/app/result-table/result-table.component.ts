@@ -17,22 +17,31 @@
 import {Component, OnInit} from '@angular/core';
 import {LocalStorageService} from "../local-storage.service";
 import {TestResult} from "../model/result";
+import {ResultExportService} from "../result-export.service";
 
 @Component({
-  selector: 'app-result-table',
-  templateUrl: './result-table.component.html',
-  styleUrls: ['./result-table.component.css']
+    selector: 'app-result-table',
+    templateUrl: './result-table.component.html',
+    styleUrls: ['./result-table.component.css']
 })
 export class ResultTableComponent implements OnInit {
 
-  constructor(private storage: LocalStorageService) {
-  }
+    constructor(private storage: LocalStorageService, private exportService: ResultExportService) {
+    }
 
-  ngOnInit(): void {
-  }
+    ngOnInit(): void {
+    }
 
-  getResults(): TestResult[] {
-    return this.storage.getResults()
-  }
+    getResults(): TestResult[] {
+        return this.storage.getResults()
+    }
+
+    resultDownloadLink(): any {
+        return encodeURI(this.exportService.toCSV(this.getResults()))
+    }
+
+    deleteResults() {
+        this.storage.deleteResults();
+    }
 
 }
