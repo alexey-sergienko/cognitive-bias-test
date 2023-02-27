@@ -48,7 +48,9 @@ export class ResultTableComponent implements OnInit {
     }
 
     deleteResults() {
-        this.storage.deleteResults();
+        if (confirm("Вы точно хотите стереть все результаты?")) {
+            this.storage.deleteResults();
+        }
     }
 
 }
