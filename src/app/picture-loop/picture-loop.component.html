@@ -2,7 +2,7 @@
 </app-info-stage-screen>
 <app-picture-picker *ngIf="pictureStage !== null"
                     [referenceImageVisible]="showReference"
-                    [referenceImage]="pictureStage!.referenceImage"
+                    [referenceImage]="pictureStage!.referenceImage.path"
                     [candidateImagesVisible]="showCandidates"
                     [topCandidate]="pictureStage!.topCandidate.path"
                     [bottomCandidate]="pictureStage!.bottomCandidate.path"

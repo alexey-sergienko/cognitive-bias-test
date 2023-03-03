@@ -24,7 +24,7 @@ export function isInfoStage(o: any): o is InfoStage {
 
 export interface Stage {
     index: number,
-    referenceImage: string
+    referenceImage: CandidateImage
     topCandidate: CandidateImage
     bottomCandidate: CandidateImage
     recordResponse: boolean // Determines whether the stage response will be recorded. Useful for "dry run" stages.

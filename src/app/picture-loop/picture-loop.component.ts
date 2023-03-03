@@ -91,7 +91,7 @@ export class PictureLoopComponent implements OnInit, OnDestroy {
                         top: true,
                         match: this.pictureStage!.topCandidate.match,
                         stageIndex: this.pictureStage!.index,
-                        referenceImage: this.pictureStage!.referenceImage,
+                        referenceImage: this.pictureStage!.referenceImage.path,
                         topImage: this.pictureStage!.topCandidate.path,
                         bottomImage: this.pictureStage!.bottomCandidate.path
                     })
@@ -101,7 +101,7 @@ export class PictureLoopComponent implements OnInit, OnDestroy {
                         top: false,
                         match: this.pictureStage!.bottomCandidate.match,
                         stageIndex: this.pictureStage!.index,
-                        referenceImage: this.pictureStage!.referenceImage,
+                        referenceImage: this.pictureStage!.referenceImage.path,
                         topImage: this.pictureStage!.topCandidate.path,
                         bottomImage: this.pictureStage!.bottomCandidate.path
                     })
