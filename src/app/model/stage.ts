@@ -24,7 +24,7 @@ export function isInfoStage(o: any): o is InfoStage {
 
 export interface Stage {
     index: number,
-    referenceImage: CandidateImage
+    referenceImage: CandidateImage // Reference is not really a "candidate", we just use the 'path' field.
     topCandidate: CandidateImage
     bottomCandidate: CandidateImage
     recordResponse: boolean // Determines whether the stage response will be recorded. Useful for "dry run" stages.
@@ -32,14 +32,20 @@ export interface Stage {
 
 export interface CandidateImage {
     path: string,
-    match: number
+    match: number // Number of characteristics (e.g. color, size, shape) matching that of the reference image
+
+    color: boolean // Color of candidate matches color of reference
+    shape: boolean // Shape of candidate matches shape of reference
+    count: boolean // Number of shapes in the candidate matches the number of shapes in the reference
+    size: boolean // Size of candidate shapes matches size of reference shapes
+    filled: boolean // True if both reference and candidate shapes are filled/unfilled, false if no match
 }
 
 export interface StageResponse {
     top: boolean;
     match: number;
     stageIndex: number;
-    referenceImage: string;
-    topImage: string;
-    bottomImage: string;
+    referenceImage: CandidateImage;
+    topImage: CandidateImage;
+    bottomImage: CandidateImage;
 }

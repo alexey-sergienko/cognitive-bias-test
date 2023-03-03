@@ -91,9 +91,9 @@ export class PictureLoopComponent implements OnInit, OnDestroy {
                         top: true,
                         match: this.pictureStage!.topCandidate.match,
                         stageIndex: this.pictureStage!.index,
-                        referenceImage: this.pictureStage!.referenceImage.path,
-                        topImage: this.pictureStage!.topCandidate.path,
-                        bottomImage: this.pictureStage!.bottomCandidate.path
+                        referenceImage: this.pictureStage!.referenceImage,
+                        topImage: this.pictureStage!.topCandidate,
+                        bottomImage: this.pictureStage!.bottomCandidate
                     })
                     break;
                 case 'ArrowDown':
@@ -101,9 +101,9 @@ export class PictureLoopComponent implements OnInit, OnDestroy {
                         top: false,
                         match: this.pictureStage!.bottomCandidate.match,
                         stageIndex: this.pictureStage!.index,
-                        referenceImage: this.pictureStage!.referenceImage.path,
-                        topImage: this.pictureStage!.topCandidate.path,
-                        bottomImage: this.pictureStage!.bottomCandidate.path
+                        referenceImage: this.pictureStage!.referenceImage,
+                        topImage: this.pictureStage!.topCandidate,
+                        bottomImage: this.pictureStage!.bottomCandidate
                     })
                     break;
             }
@@ -114,9 +114,17 @@ export class PictureLoopComponent implements OnInit, OnDestroy {
                 top: false,
                 match: 0,
                 stageIndex: 0,
-                referenceImage: '',
-                topImage: '',
-                bottomImage: ''
+                referenceImage: {
+                    path: '',
+                    match: 0,
+                    color: false,
+                    shape: false,
+                    count: false,
+                    size: false,
+                    filled: false
+                },
+                topImage: {path: '', match: 0, color: false, shape: false, count: false, size: false, filled: false},
+                bottomImage: {path: '', match: 0, color: false, shape: false, count: false, size: false, filled: false}
             })
         }
     }
