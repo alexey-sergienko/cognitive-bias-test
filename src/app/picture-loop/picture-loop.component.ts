@@ -33,6 +33,8 @@ export class PictureLoopComponent implements OnInit, OnDestroy {
     showReference: boolean = false;
     showCandidates: boolean = false;
 
+    private timeMillisCandidatesShown: number;
+
     private stageSubscription: Subscription | null;
 
     constructor(private gameSession: GameSessionService, private router: Router) {
@@ -40,6 +42,7 @@ export class PictureLoopComponent implements OnInit, OnDestroy {
         this.pictureStage = null;
         this.stageResponseSubmitted = false;
         this.stageSubscription = null;
+        this.timeMillisCandidatesShown = 0;
     }
 
     ngOnInit(): void {
@@ -59,6 +62,7 @@ export class PictureLoopComponent implements OnInit, OnDestroy {
                     })
                     timer(3000).subscribe(() => {
                         this.showCandidates = !this.showCandidates;
+                        this.timeMillisCandidatesShown = Date.now();
                     });
                 } else {
                     this.infoStage = s;
@@ -93,7 +97,8 @@ export class PictureLoopComponent implements OnInit, OnDestroy {
                         stageIndex: this.pictureStage!.index,
                         referenceImage: this.pictureStage!.referenceImage,
                         topImage: this.pictureStage!.topCandidate,
-                        bottomImage: this.pictureStage!.bottomCandidate
+                        bottomImage: this.pictureStage!.bottomCandidate,
+                        timeToChoiceMillis: Date.now() - this.timeMillisCandidatesShown
                     })
                     break;
                 case 'ArrowDown':
@@ -103,7 +108,8 @@ export class PictureLoopComponent implements OnInit, OnDestroy {
                         stageIndex: this.pictureStage!.index,
                         referenceImage: this.pictureStage!.referenceImage,
                         topImage: this.pictureStage!.topCandidate,
-                        bottomImage: this.pictureStage!.bottomCandidate
+                        bottomImage: this.pictureStage!.bottomCandidate,
+                        timeToChoiceMillis: Date.now() - this.timeMillisCandidatesShown
                     })
                     break;
             }
@@ -124,7 +130,8 @@ export class PictureLoopComponent implements OnInit, OnDestroy {
                     filled: false
                 },
                 topImage: {path: '', match: 0, color: false, shape: false, count: false, size: false, filled: false},
-                bottomImage: {path: '', match: 0, color: false, shape: false, count: false, size: false, filled: false}
+                bottomImage: {path: '', match: 0, color: false, shape: false, count: false, size: false, filled: false},
+                timeToChoiceMillis: Date.now() - this.timeMillisCandidatesShown
             })
         }
     }

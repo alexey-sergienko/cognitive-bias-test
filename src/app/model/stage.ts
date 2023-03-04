@@ -48,4 +48,5 @@ export interface StageResponse {
     referenceImage: CandidateImage;
     topImage: CandidateImage;
     bottomImage: CandidateImage;
+    timeToChoiceMillis: number;
 }

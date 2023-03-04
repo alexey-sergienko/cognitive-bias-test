@@ -36,7 +36,7 @@ export class ResultExportService {
             let minMatch = r.topImage.match <= r.bottomImage.match ? r.topImage.match : r.bottomImage.match;
             let maxMatch = r.topImage.match >= r.bottomImage.match ? r.topImage.match : r.bottomImage.match;
 
-            let time = 0; // TODO measure time from start of stage to candidate selection
+            let time = r.timeToChoiceMillis;
 
             return `${trial};${stim};${color};${shape};${count};${size};${filled};${match};${item};${minMatch};${maxMatch};${time}`
         })
