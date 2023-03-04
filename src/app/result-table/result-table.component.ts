@@ -47,6 +47,11 @@ export class ResultTableComponent implements OnInit {
         saveAs(blob, `${result.date}_${result.userInfo.firstName}_${result.userInfo.lastName}.csv`)
     }
 
+    downloadReferenceTable() {
+        let blob = new Blob([this.exportService.referenceTable()], {type: "text/plain;charset=utf-8"})
+        saveAs(blob, `reference_table.csv`)
+    }
+
     deleteResults() {
         if (confirm("Вы точно хотите стереть все результаты?")) {
             this.storage.deleteResults();

@@ -19,10 +19,29 @@ export class ResultExportService {
     }
 
     responsesToCSV(responses: StageResponse[]): string {
-        let header = 'Номер вопроса;Исходное изображение;Опция 1 (верх);Опция 2 (низ);Уровень схожести выбранного с исходным изображением;\n';
+        let header = 'Trial;Stim;Color;Shape;Num;Size;Filled;Match;Item;Min;Max;Time'
+        let data = responses.map((r, i) => {
+            let trial = i + 1;
+            let stim = r.top ? '1' : '2';
 
-        return header + responses.map(r => `${r.stageIndex};${r.referenceImage};${r.topImage};${r.bottomImage};${r.match};`)
-            .join("\n");
+            let candidate = r.top ? r.topImage : r.bottomImage;
+            let color = this.boolToInt(candidate.color);
+            let shape = this.boolToInt(candidate.shape);
+            let count = this.boolToInt(candidate.count);
+            let size = this.boolToInt(candidate.size);
+            let filled = this.boolToInt(candidate.filled);
+            let match = candidate.match;
+            let item = candidate.path;
+
+            let minMatch = r.topImage.match <= r.bottomImage.match ? r.topImage.match : r.bottomImage.match;
+            let maxMatch = r.topImage.match >= r.bottomImage.match ? r.topImage.match : r.bottomImage.match;
+
+            let time = 0; // TODO measure time from start of stage to candidate selection
+
+            return `${trial};${stim};${color};${shape};${count};${size};${filled};${match};${item};${minMatch};${maxMatch};${time}`
+        })
+
+        return header + data.join('\n');
     }
 
     referenceTable(): string {
@@ -37,7 +56,7 @@ export class ResultExportService {
                 return [ref, top, bottom].join('\n')
             })
 
-        return header + data
+        return header + data.join('\n')
     }
 
     private boolToInt(b: boolean): string {
