@@ -15,7 +15,7 @@
  */
 
 import {Injectable} from '@angular/core';
-import {InfoStage, Stage, StageResponse} from "./model/stage";
+import {InfoStage, isInfoStage, Stage, StageResponse} from "./model/stage";
 import {Observable, Subject} from "rxjs";
 import {LocalStorageService} from "./local-storage.service";
 import {UserInfoService} from "./user-info.service";
@@ -2029,7 +2029,9 @@ export class GameSessionService {
     }
 
     submitResponse(response: StageResponse) {
-        this.responses.push(response);
+        if (!isInfoStage(this.stages[this.currentStage]) && (this.stages[this.currentStage] as Stage).recordResponse) {
+            this.responses.push(response);
+        }
         this.currentStage += 1;
 
         if (this.currentStage < this.stages.length) {

@@ -19,7 +19,7 @@ export class ResultExportService {
     }
 
     responsesToCSV(responses: StageResponse[]): string {
-        let header = 'Trial;Stim;Color;Shape;Num;Size;Filled;Match;Item;Min;Max;Time'
+        let header = 'Trial;Stim;Color;Shape;Num;Size;Filled;Match;Item;Min;Max;Time;\n'
         let data = responses.map((r, i) => {
             let trial = i + 1;
             let stim = r.top ? '1' : '2';
