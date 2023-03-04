@@ -2068,4 +2068,8 @@ export class GameSessionService {
             .map(s => s.topCandidate.match >= s.bottomCandidate.match ? s.topCandidate.match : s.bottomCandidate.match)
             .reduce((acc, value) => acc + value)
     }
+
+    getStages(): Stage[] {
+        return this.stages.slice(6).map(s => s as Stage)
+    }
 }
