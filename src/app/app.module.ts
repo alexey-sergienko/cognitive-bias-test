@@ -27,6 +27,9 @@ import { UserInfoFormComponent } from './user-info-form/user-info-form.component
 import { InfoStageScreenComponent } from './info-stage-screen/info-stage-screen.component';
 import {FormsModule} from "@angular/forms";
 import { ResultTableComponent } from './result-table/result-table.component';
+import { NumericTableGameComponent } from './numeric-table-game/numeric-table-game.component';
+import { GameMenuComponent } from './game-menu/game-menu.component';
+import { NumericTableGameMenuComponent } from './numeric-table-game-menu/numeric-table-game-menu.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +40,10 @@ import { ResultTableComponent } from './result-table/result-table.component';
     StartScreenComponent,
     UserInfoFormComponent,
     InfoStageScreenComponent,
-    ResultTableComponent
+    ResultTableComponent,
+    NumericTableGameComponent,
+    GameMenuComponent,
+    NumericTableGameMenuComponent
   ],
   imports: [
     BrowserModule,

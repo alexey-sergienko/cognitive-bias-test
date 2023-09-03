@@ -1,0 +1,19 @@
+<div class="container">
+    <div class="tile is-ancestor mt-4">
+        <div class="tile is-vertical">
+            <div class="tile" *ngFor="let row of tiles; index as i ">
+                <div class="tile is-parent is-vertical" *ngFor="let tile of row" (click)="onTileClick(tile)">
+                    <article class="tile is-child notification has-text-centered" [ngClass]="{
+                    'is-primary': tile.showSuccess,
+                    'is-danger': tile.showWarning
+                    }">
+                        <br *ngIf="!tile.showTimeToFind">
+                        <p class="title">{{tile.value}}</p>
+                        <br>
+                        <p *ngIf="tile.showTimeToFind">{{tile.timeToFindMillis}} ms</p>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
