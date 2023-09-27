@@ -34,11 +34,6 @@ export class NumericTableGameComponent implements OnInit {
     }
 
     onTileClick(tile: NumericTile) {
-        if (tile.found) { // nothing to do if the number was already found
-            return;
-        }
-
-        // TODO подсвечивать красным уже найденные, если на них нажали во второй раз
         if (tile.value === this.expectedNumber) {
             tile.found = true;
             tile.showWarning = false;
@@ -52,10 +47,12 @@ export class NumericTableGameComponent implements OnInit {
                 tile.showSuccess = false;
             })
         } else {
-            tile.showWarning = true;
-            timer(500).subscribe(() => {
-                tile.showWarning = false;
-            })
+            if (!tile.showSuccess) {
+                tile.showWarning = true;
+                timer(500).subscribe(() => {
+                    tile.showWarning = false;
+                })
+            }
         }
 
         if (this.expectedNumber > this.totalNumbers) {
