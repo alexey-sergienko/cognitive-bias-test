@@ -1,4 +1,7 @@
 import {Component, OnInit} from '@angular/core';
+import {Route} from "@angular/router";
+import {SessionInfo} from "../numeric-table-game-session-info/numeric-table-game-session-info.component";
+import {LocalStorageService} from "../local-storage.service";
 
 @Component({
     selector: 'app-numeric-table-game-menu',
@@ -47,7 +50,14 @@ export class NumericTableGameMenuComponent implements OnInit {
         [9, 24, 3, 23, 10]
     ]
 
-    constructor() {
+    tables = [this.tableOne, this.tableTwo, this.tableThree, this.tableFour, this.tableFive];
+    currentSession: GameSession | null = null;
+
+    showSessionInfoScreen: boolean = false;
+    showGameScreen: boolean = false;
+    currentTableIdx: number = 0;
+
+    constructor(private storage: LocalStorageService) {
     }
 
     ngOnInit(): void {
@@ -62,5 +72,43 @@ export class NumericTableGameMenuComponent implements OnInit {
             [...Array(5)].map((_, i) => (21 + i))
         ]
     }
+
+    onNewSession(): void {
+        this.showSessionInfoScreen = true;
+    }
+
+    onSessionCreated(sessionInfo: SessionInfo): void {
+        this.showSessionInfoScreen = false;
+        this.currentSession = new GameSession(sessionInfo, this.tables.length);
+        // TODO save session to local data, show table selection (with all greyed out but the next possible in order)
+
+        let sessions = this.getSessions();
+        sessions.push(this.currentSession);
+        this.saveSessions(sessions);
+    }
+
+    // Session handling
+
+    private SESSIONS_KEY = 'NUMERIC_GAME_SESSION_STORAGE';
+
+    getSessions(): GameSession[] {
+        let storedSessions = this.storage.get<GameSession[]>(this.SESSIONS_KEY);
+        return storedSessions == null ? [] : storedSessions;
+    }
+
+    saveSessions(sessions: GameSession[]) {
+        this.storage.set(this.SESSIONS_KEY, sessions);
+    }
+}
+
+class GameSession {
+    sessionInfo: SessionInfo;
+    tableResults: Array<boolean>;
+
+    constructor(sessionInfo: SessionInfo, length: number) {
+        this.sessionInfo = sessionInfo;
+        this.tableResults = Array(length).map(() => false);
+    }
+
 
 }

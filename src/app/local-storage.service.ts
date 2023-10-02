@@ -48,4 +48,21 @@ export class LocalStorageService {
         }
     }
 
+    // Generic methods
+
+    set<T>(key: string, value: T): void {
+        localStorage.setItem(key, JSON.stringify(value));
+    }
+
+    get<T>(key: string): T | null {
+        if (localStorage.getItem(key) == null) {
+            return null;
+        }
+        return JSON.parse(localStorage.getItem(key) as string)
+    }
+
+    delete(key: string): void {
+        localStorage.removeItem(key);
+    }
+
 }

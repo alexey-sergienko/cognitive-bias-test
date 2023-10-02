@@ -1,0 +1,20 @@
+<div class="hero-body">
+    <div class="container">
+        <div class="columns is-5-tablet is-4-desktop is-3-widescreen">
+            <div class="column">
+                <form class="box">
+                    <div class="field">
+                        <label class="label">Имя</label>
+                        <div class="control">
+                            <input type="email" class="input" placeholder="Васильев Василий Васильевич"
+                                   [(ngModel)]="name" [ngModelOptions]="{standalone: true}">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <button class="button is-success" (click)="onPressNext()">Продолжить</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

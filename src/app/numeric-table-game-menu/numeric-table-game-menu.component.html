@@ -1,3 +1,47 @@
-<app-numeric-table-game [numberTable]="generateTable()">
+<div class="container" *ngIf="!showSessionInfoScreen && !showGameScreen && currentSession === null">
+    <div class="tile is-ancestor mt-4">
+        <div class="tile is-vertical">
+            <div class="tile is-parent">
+                <div class="tile is-child">
+                    <article class="tile is-child notification">
+                        <p class="title">Тест на зоны внимания</p>
+                    </article>
+                </div>
+            </div>
+            <div class="tile is-parent">
+                <div class="tile is-child button">Продолжить сессию</div>
+            </div>
+            <div class="tile is-parent">
+                <div class="tile is-child button" (click)="onNewSession()">Новая сессия</div>
+            </div>
+        </div>
+    </div>
+</div>
 
+<div class="container" *ngIf="currentSession !== null">
+    <div class="tile is-ancestor mt-4">
+        <div class="tile is-vertical">
+            <div class="tile is-parent">
+                <div class="tile is-child">
+                    <article class="tile is-child notification">
+                        <p class="title">Тест на зоны внимания</p>
+                        <p class="subtitle">Выберите уровень</p>
+                    </article>
+                </div>
+            </div>
+            <div class="tile is-parent">
+                <div class="tile is-child">
+                    <article class="tile is-child notification is-primary">
+                        <p class="title">Уровень 1</p>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-numeric-table-game-session-info *ngIf="showSessionInfoScreen" (newSessionEvent)="onSessionCreated($event)">
+</app-numeric-table-game-session-info>
+
+<app-numeric-table-game [numberTable]="generateTable()" *ngIf="showGameScreen">
 </app-numeric-table-game>

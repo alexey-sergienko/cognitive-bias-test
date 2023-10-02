@@ -30,6 +30,7 @@ import { ResultTableComponent } from './result-table/result-table.component';
 import { NumericTableGameComponent } from './numeric-table-game/numeric-table-game.component';
 import { GameMenuComponent } from './game-menu/game-menu.component';
 import { NumericTableGameMenuComponent } from './numeric-table-game-menu/numeric-table-game-menu.component';
+import { NumericTableGameSessionInfoComponent } from './numeric-table-game-session-info/numeric-table-game-session-info.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { NumericTableGameMenuComponent } from './numeric-table-game-menu/numeric
     ResultTableComponent,
     NumericTableGameComponent,
     GameMenuComponent,
-    NumericTableGameMenuComponent
+    NumericTableGameMenuComponent,
+    NumericTableGameSessionInfoComponent
   ],
   imports: [
     BrowserModule,
