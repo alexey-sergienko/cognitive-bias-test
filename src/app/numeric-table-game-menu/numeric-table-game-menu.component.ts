@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Route} from "@angular/router";
+import {Router} from "@angular/router";
 import {SessionInfo} from "../numeric-table-game-session-info/numeric-table-game-session-info.component";
 import {LocalStorageService} from "../local-storage.service";
 
@@ -53,38 +53,62 @@ export class NumericTableGameMenuComponent implements OnInit {
     tables = [this.tableOne, this.tableTwo, this.tableThree, this.tableFour, this.tableFive];
     currentSession: GameSession | null = null;
 
-    showSessionInfoScreen: boolean = false;
+    showSessionCreationScreen: boolean = false;
+    showSessionSelectionScreen: boolean = false;
     showGameScreen: boolean = false;
-    currentTableIdx: number = 0;
+    currentTable: number = 0;
 
-    constructor(private storage: LocalStorageService) {
+    constructor(private storage: LocalStorageService, private router: Router) {
     }
 
     ngOnInit(): void {
     }
 
-    generateTable(): Array<Array<number>> {
-        return [
-            [...Array(5)].map((_, i) => (1 + i)),
-            [...Array(5)].map((_, i) => (6 + i)),
-            [...Array(5)].map((_, i) => (11 + i)),
-            [...Array(5)].map((_, i) => (16 + i)),
-            [...Array(5)].map((_, i) => (21 + i))
-        ]
+    navigateToIndex() {
+        this.router.navigate(["/"]);
+    }
+
+    onStartSessionSelection(): void {
+        this.showSessionSelectionScreen = true;
     }
 
     onNewSession(): void {
-        this.showSessionInfoScreen = true;
+        this.showSessionCreationScreen = true;
+    }
+
+    onSessionSelected(session: GameSession) {
+        this.showSessionSelectionScreen = false;
+        this.currentSession = session;
     }
 
     onSessionCreated(sessionInfo: SessionInfo): void {
-        this.showSessionInfoScreen = false;
+        this.showSessionCreationScreen = false;
         this.currentSession = new GameSession(sessionInfo, this.tables.length);
-        // TODO save session to local data, show table selection (with all greyed out but the next possible in order)
 
         let sessions = this.getSessions();
         sessions.push(this.currentSession);
         this.saveSessions(sessions);
+    }
+
+    onStartTable(index: number) {
+        this.currentTable = index;
+        this.showGameScreen = true;
+    }
+
+    onTableDone(results: number[][]) {
+        this.currentSession!.nextTable += 1;
+        this.currentSession!.tableDone[this.currentTable] = true;
+        this.currentSession!.tableResults[this.currentTable] = results;
+        this.showGameScreen = false;
+
+        let sessions = this.getSessions();
+        for (let i = 0; i < sessions.length; i++) {
+            if (this.currentSession!.sessionInfo.name == sessions[i].sessionInfo.name && this.currentSession!.sessionInfo.timestampISO == sessions[i].sessionInfo.timestampISO) {
+                sessions[i] = this.currentSession!;
+                this.saveSessions(sessions);
+                break;
+            }
+        }
     }
 
     // Session handling
@@ -101,14 +125,16 @@ export class NumericTableGameMenuComponent implements OnInit {
     }
 }
 
-class GameSession {
+export class GameSession {
     sessionInfo: SessionInfo;
-    tableResults: Array<boolean>;
+    tableDone: Array<boolean>;
+    tableResults: Array<number[][]>;
+    nextTable: number;
 
     constructor(sessionInfo: SessionInfo, length: number) {
         this.sessionInfo = sessionInfo;
-        this.tableResults = Array(length).map(() => false);
+        this.tableDone = Array(length).map(() => false);
+        this.tableResults = Array(length);
+        this.nextTable = 0;
     }
-
-
 }

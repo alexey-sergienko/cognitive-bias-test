@@ -1,5 +1,6 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {timer} from "rxjs";
+import {SessionInfo} from "../numeric-table-game-session-info/numeric-table-game-session-info.component";
 
 @Component({
     selector: 'app-numeric-table-game',
@@ -8,6 +9,7 @@ import {timer} from "rxjs";
 })
 export class NumericTableGameComponent implements OnInit {
     @Input() numberTable!: Array<Array<number>>;
+    @Output("gameEndEvent") gameEndEvent = new EventEmitter<Array<Array<number>>>();
 
     private startTime: number;
 
@@ -56,17 +58,13 @@ export class NumericTableGameComponent implements OnInit {
         }
 
         if (this.expectedNumber > this.totalNumbers) {
-            // TODO end the game and process the results
             this.onGameEnd();
         }
     }
 
     private onGameEnd() {
-        for (let row of this.tiles) {
-            for (let tile of row) {
-                tile.showTimeToFind = true;
-            }
-        }
+        let results = this.tiles.map(row => row.map(tile => tile.timeToFindMillis));
+        this.gameEndEvent.emit(results);
     }
 
 }
