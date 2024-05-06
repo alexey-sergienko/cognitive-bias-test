@@ -1,0 +1,15 @@
+.tile.is-gapless {
+    .tile.is-parent {
+        padding: 0;
+    }
+
+    .tile.is-vertical > .tile.is-child {
+        margin-bottom: 0 !important;
+    }
+
+    .notification {
+        border-radius: 0;
+        border-style: solid;
+        border-color: black;
+    }
+}

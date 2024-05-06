@@ -1,5 +1,5 @@
 <div class="container">
-    <div class="tile is-ancestor mt-4">
+    <div class="tile is-ancestor mt-4 is-gapless">
         <div class="tile is-vertical">
             <div class="tile" *ngFor="let row of tiles; index as i ">
                 <div class="tile is-parent is-vertical" *ngFor="let tile of row" (click)="onTileClick(tile)">
