@@ -24,6 +24,7 @@ import {ResultTableComponent} from "./result-table/result-table.component";
 import {NumericTableGameComponent} from "./numeric-table-game/numeric-table-game.component";
 import {GameMenuComponent} from "./game-menu/game-menu.component";
 import {NumericTableGameMenuComponent} from "./numeric-table-game-menu/numeric-table-game-menu.component";
+import {NumericTableGameResultsComponent} from "./numeric-table-game-results/numeric-table-game-results.component";
 
 const routes: Routes = [
     {path: "startCbt", component: StartScreenComponent},
@@ -32,6 +33,7 @@ const routes: Routes = [
     {path: "complete", component: CompletionScreenComponent},
     {path: "results", component: ResultTableComponent},
     {path: "numericTableGame", component: NumericTableGameMenuComponent},
+    {path: "numericTableGameResults", component: NumericTableGameResultsComponent},
     {path: "menu", component: GameMenuComponent},
     {path: '', redirectTo: '/menu', pathMatch: 'full'},
     {path: '**', redirectTo: ''}

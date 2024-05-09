@@ -9,7 +9,7 @@ import {SessionInfo} from "../numeric-table-game-session-info/numeric-table-game
 })
 export class NumericTableGameComponent implements OnInit {
     @Input() numberTable!: Array<Array<number>>;
-    @Output("gameEndEvent") gameEndEvent = new EventEmitter<Array<Array<number>>>();
+    @Output("gameEndEvent") gameEndEvent = new EventEmitter<Array<number>>();
 
     private startTime: number;
 
@@ -63,7 +63,8 @@ export class NumericTableGameComponent implements OnInit {
     }
 
     private onGameEnd() {
-        let results = this.tiles.map(row => row.map(tile => tile.timeToFindMillis));
+        let sortedTiles = this.tiles.flatMap((row: NumericTile[]) => row).sort((a, b) => a.value - b.value);
+        let results = sortedTiles.map(tile => tile.timeToFindMillis);
         this.gameEndEvent.emit(results);
     }
 

@@ -68,6 +68,10 @@ export class NumericTableGameMenuComponent implements OnInit {
         this.router.navigate(["/"]);
     }
 
+    navigateToResults() {
+        this.router.navigate(["/numericTableGameResults"]);
+    }
+
     onStartSessionSelection(): void {
         this.showSessionSelectionScreen = true;
     }
@@ -95,7 +99,7 @@ export class NumericTableGameMenuComponent implements OnInit {
         this.showGameScreen = true;
     }
 
-    onTableDone(results: number[][]) {
+    onTableDone(results: number[]) {
         this.currentSession!.nextTable += 1;
         this.currentSession!.tableDone[this.currentTable] = true;
         this.currentSession!.tableResults[this.currentTable] = results;
@@ -128,7 +132,7 @@ export class NumericTableGameMenuComponent implements OnInit {
 export class GameSession {
     sessionInfo: SessionInfo;
     tableDone: Array<boolean>;
-    tableResults: Array<number[][]>;
+    tableResults: Array<number[]>;
     nextTable: number;
 
     constructor(sessionInfo: SessionInfo, length: number) {

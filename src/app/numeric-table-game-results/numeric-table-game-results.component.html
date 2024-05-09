@@ -1,0 +1,27 @@
+<div class="container">
+    <div class="columns">
+        <div class="column"><a class="button" routerLink="/numericTableGame">Назад</a></div>
+    </div>
+    <div class="tile is-ancestor mt-4">
+        <div class="tile is-vertical">
+            <div class="tile is-parent">
+                <div class="tile is-child">
+                    <article class="tile is-child notification">
+                        <p class="title">Законченные сессии:</p>
+                    </article>
+                </div>
+                <div class="tile is-child">
+                    <div class="button" (click)="downloadAllResults(getFinishedSessions())">Загрузить обобщенные
+                        результаты
+                    </div>
+                </div>
+            </div>
+            <div class="tile is-parent" *ngFor="let session of getFinishedSessions()">
+                <div class="tile button is-child button"
+                     (click)="downloadResponses(session)">{{ session.sessionInfo.name }}
+                    , {{ session.sessionInfo.timestampISO }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
