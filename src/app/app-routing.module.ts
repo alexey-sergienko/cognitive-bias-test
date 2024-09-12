@@ -21,20 +21,27 @@ import {CompletionScreenComponent} from "./completion-screen/completion-screen.c
 import {StartScreenComponent} from "./start-screen/start-screen.component";
 import {UserInfoFormComponent} from "./user-info-form/user-info-form.component";
 import {ResultTableComponent} from "./result-table/result-table.component";
+import {NumericTableGameComponent} from "./numeric-table-game/numeric-table-game.component";
+import {GameMenuComponent} from "./game-menu/game-menu.component";
+import {NumericTableGameMenuComponent} from "./numeric-table-game-menu/numeric-table-game-menu.component";
+import {NumericTableGameResultsComponent} from "./numeric-table-game-results/numeric-table-game-results.component";
 
 const routes: Routes = [
-  {path: "start", component: StartScreenComponent},
-  {path: "userInfo", component: UserInfoFormComponent},
-  {path: "test", component: PictureLoopComponent},
-  {path: "complete", component: CompletionScreenComponent},
-  {path: "results", component: ResultTableComponent},
-  {path: '', redirectTo: '/start', pathMatch: 'full'},
-  {path: '**', redirectTo: ''}
+    {path: "startCbt", component: StartScreenComponent},
+    {path: "userInfo", component: UserInfoFormComponent},
+    {path: "test", component: PictureLoopComponent},
+    {path: "complete", component: CompletionScreenComponent},
+    {path: "results", component: ResultTableComponent},
+    {path: "numericTableGame", component: NumericTableGameMenuComponent},
+    {path: "numericTableGameResults", component: NumericTableGameResultsComponent},
+    {path: "menu", component: GameMenuComponent},
+    {path: '', redirectTo: '/menu', pathMatch: 'full'},
+    {path: '**', redirectTo: ''}
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+    imports: [RouterModule.forRoot(routes)],
+    exports: [RouterModule]
 })
 export class AppRoutingModule {
 }

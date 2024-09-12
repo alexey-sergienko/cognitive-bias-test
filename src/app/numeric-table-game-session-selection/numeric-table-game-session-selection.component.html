@@ -1,0 +1,18 @@
+<div class="container">
+    <button class="button" (click)="navigateBack()">Назад</button>
+    <div class="tile is-ancestor mt-4">
+        <div class="tile is-vertical">
+            <div class="tile is-parent">
+                <div class="tile is-child">
+                    <article class="tile is-child notification">
+                        <p class="title">Незаконченные сессии:</p>
+                    </article>
+                </div>
+            </div>
+            <div class="tile is-parent" *ngFor="let session of getUnfinishedSessions()">
+                <div class="tile button is-child button" (click)="onSessionSelected(session)">{{session.sessionInfo.name}}
+                    , {{session.sessionInfo.timestampISO}}</div>
+            </div>
+        </div>
+    </div>
+</div>

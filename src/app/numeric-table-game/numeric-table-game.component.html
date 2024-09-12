@@ -1,0 +1,15 @@
+<div style="padding-top: 5%; padding-left: 50%; margin-left: -25%;">
+    <div class="grid-container" *ngFor="let row of tiles; index as i ">
+        <div class="" *ngFor="let tile of row" (click)="onTileClick(tile)">
+            <article class="grid-item" [ngClass]="{
+            'is-primary': tile.showSuccess,
+            'is-danger': tile.showWarning
+            }">{{tile.value}}
+                <!-- <br *ngIf="!tile.showTimeToFind">
+                <p class="">{{tile.value}}</p>
+                <br>
+                <p *ngIf="tile.showTimeToFind">{{tile.timeToFindMillis}} ms</p> -->
+            </article>
+        </div>
+    </div>
+</div>

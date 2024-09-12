@@ -1,0 +1,53 @@
+<div class="container" *ngIf="!showSessionCreationScreen && !showSessionSelectionScreen && currentSession == null">
+    <button class="button" (click)="navigateToIndex()">Назад</button>
+    <button class="button" (click)="navigateToResults()">Результаты</button>
+    <div class="tile is-ancestor mt-4">
+        <div class="tile is-vertical">
+            <div class="tile is-parent">
+                <div class="tile is-child">
+                    <article class="tile is-child notification">
+                        <p class="title">Таблицы Шульте</p>
+                    </article>
+                </div>
+            </div>
+            <div class="tile is-parent">
+                <div class="tile is-child button" (click)="onStartSessionSelection()">Продолжить сессию</div>
+            </div>
+            <div class="tile is-parent">
+                <div class="tile is-child button" (click)="onNewSession()">Новая сессия</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container" *ngIf="currentSession != null && !showGameScreen">
+    <button class="button" (click)="navigateToIndex()">Назад</button>
+    <div class="tile is-ancestor mt-4">
+        <div class="tile is-vertical">
+            <div class="tile is-parent">
+                <div class="tile is-child">
+                    <article class="tile is-child notification">
+                        <p class="title">Таблицы Шульте</p>
+                        <p class="subtitle"><b>Сессия</b>: {{currentSession.sessionInfo.name}}
+                            , {{currentSession.sessionInfo.timestampISO}}</p>
+                        <p class="subtitle">Выберите таблицу</p>
+                    </article>
+                </div>
+            </div>
+            <div class="tile is-parent" *ngFor="let table of tables; index as i">
+                <button (click)="onStartTable(i)" [disabled]="currentSession.nextTable !== i"
+                        class="tile is-child button is-primary">Таблица {{i + 1}}</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-numeric-table-game-session-info *ngIf="showSessionCreationScreen" (newSessionEvent)="onSessionCreated($event)">
+</app-numeric-table-game-session-info>
+
+<app-numeric-table-game-session-selection [sessions]="getSessions()"
+                                          *ngIf="showSessionSelectionScreen" (sessionSelectedEvent)="onSessionSelected($event)"></app-numeric-table-game-session-selection>
+
+<app-numeric-table-game [numberTable]="tables[currentTable]" *ngIf="showGameScreen"
+                        (gameEndEvent)="onTableDone($event)">
+</app-numeric-table-game>
