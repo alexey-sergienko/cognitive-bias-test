@@ -1,15 +1,27 @@
-.tile.is-gapless {
-    .tile.is-parent {
-        padding: 0;
-    }
+.grid-container {
+    display: grid;
+    grid-template-columns: 150px 150px 150px 150px 150px;
+    background-color: #000000;
+    row-gap: 0;
+}
 
-    .tile.is-vertical > .tile.is-child {
-        margin-bottom: 0 !important;
-    }
+.grid-item {
+    background-color: white;
+    border: 1px solid rgb(199, 199, 199);
+    padding: 0;
+    font-size: 75px;
+    text-align: center;
+    /*justify-content: center; 
+    max-width: 100%;
+    max-height: 100%;*/
+    aspect-ratio: 1;
+    overflow: hidden;
+}
 
-    .notification {
-        border-radius: 0;
-        border-style: solid;
-        border-color: black;
-    }
+article.is-primary {
+    background-color: green;
+}
+
+article.is-danger {
+    background-color: red;
 }

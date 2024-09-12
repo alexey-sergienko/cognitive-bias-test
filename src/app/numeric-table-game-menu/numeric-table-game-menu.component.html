@@ -6,7 +6,7 @@
             <div class="tile is-parent">
                 <div class="tile is-child">
                     <article class="tile is-child notification">
-                        <p class="title">Тест на зоны внимания</p>
+                        <p class="title">Таблицы Шульте</p>
                     </article>
                 </div>
             </div>
@@ -27,16 +27,16 @@
             <div class="tile is-parent">
                 <div class="tile is-child">
                     <article class="tile is-child notification">
-                        <p class="title">Тест на зоны внимания</p>
+                        <p class="title">Таблицы Шульте</p>
                         <p class="subtitle"><b>Сессия</b>: {{currentSession.sessionInfo.name}}
                             , {{currentSession.sessionInfo.timestampISO}}</p>
-                        <p class="subtitle">Выберите уровень</p>
+                        <p class="subtitle">Выберите таблицу</p>
                     </article>
                 </div>
             </div>
             <div class="tile is-parent" *ngFor="let table of tables; index as i">
                 <button (click)="onStartTable(i)" [disabled]="currentSession.nextTable !== i"
-                        class="tile is-child button is-primary">Уровень {{i + 1}}</button>
+                        class="tile is-child button is-primary">Таблица {{i + 1}}</button>
             </div>
         </div>
     </div>
