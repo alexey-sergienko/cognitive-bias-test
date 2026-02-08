@@ -37,4 +37,8 @@ export class StartScreenComponent implements OnInit {
       this.router.navigate(["/userInfo"])
     }
   }
+
+  goToUserInfo() {
+    this.router.navigate(["/userInfo"])
+  }
 }

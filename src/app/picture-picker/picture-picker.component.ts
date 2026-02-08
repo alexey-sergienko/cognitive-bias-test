@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
 
 @Component({
   selector: 'app-picture-picker',
@@ -29,10 +29,21 @@ export class PicturePickerComponent implements OnInit {
   @Input() topCandidate!: string;
   @Input() bottomCandidate!: string;
 
+  @Output() topPictureChosen = new EventEmitter<void>();
+  @Output() bottomPictureChosen = new EventEmitter<void>();
+
   constructor() {
   }
 
   ngOnInit(): void {
+  }
+
+  onTopPictureChosen() {
+    this.topPictureChosen.emit();
+  }
+
+  onBottomPictureChosen() {
+    this.bottomPictureChosen.emit();
   }
 
 }

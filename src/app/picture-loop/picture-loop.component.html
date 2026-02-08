@@ -1,4 +1,4 @@
-<app-info-stage-screen *ngIf="infoStage !== null" [text]="infoStage!.text">
+<app-info-stage-screen *ngIf="infoStage !== null" [text]="infoStage!.text" (click)="progressInfoStage()">
 </app-info-stage-screen>
 <app-picture-picker *ngIf="pictureStage !== null"
                     [referenceImageVisible]="showReference"
@@ -6,4 +6,6 @@
                     [candidateImagesVisible]="showCandidates"
                     [topCandidate]="pictureStage!.topCandidate.path"
                     [bottomCandidate]="pictureStage!.bottomCandidate.path"
+                    (topPictureChosen)="chooseTopPicture()"
+                    (bottomPictureChosen)="chooseBottomPicture()"
 ></app-picture-picker>

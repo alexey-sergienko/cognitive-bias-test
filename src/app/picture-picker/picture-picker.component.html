@@ -13,7 +13,7 @@
     </div>
 
     <!--Top candidate-->
-    <div class="tile" [style]="candidateImagesVisible ? '' : 'visibility:hidden'" style="margin-top: 5%">
+    <div class="tile" [style]="candidateImagesVisible ? '' : 'visibility:hidden'" style="margin-top: 5%" (click)="onTopPictureChosen()">
       <div class="tile is-parent is-vertical"></div>
       <div class="tile is-parent">
         <article class="tile is-child">
@@ -25,7 +25,7 @@
     </div>
 
     <!--Bottom candidate-->
-    <div class="tile" [style]="candidateImagesVisible ? '' : 'visibility:hidden'">
+    <div class="tile" [style]="candidateImagesVisible ? '' : 'visibility:hidden'" (click)="onBottomPictureChosen()">
       <div class="tile is-parent is-vertical"></div>
       <div class="tile is-parent">
         <article class="tile is-child">

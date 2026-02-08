@@ -91,6 +91,20 @@ export class PictureLoopComponent implements OnInit, OnDestroy {
         if (this.pictureStage !== null && !this.stageResponseSubmitted && this.showCandidates) {
             switch (keyCode) {
                 case 'ArrowUp':
+                    this.chooseTopPicture()
+                    break;
+                case 'ArrowDown':
+                    this.chooseBottomPicture()
+                    break;
+            }
+        }
+
+        if (this.infoStage !== null && keyCode === 'Space') {
+            this.progressInfoStage()
+        }
+    }
+
+    chooseTopPicture() {
                     this.gameSession.submitResponse({
                         top: true,
                         match: this.pictureStage!.topCandidate.match,
@@ -100,8 +114,9 @@ export class PictureLoopComponent implements OnInit, OnDestroy {
                         bottomImage: this.pictureStage!.bottomCandidate,
                         timeToChoiceMillis: Date.now() - this.timeMillisCandidatesShown
                     })
-                    break;
-                case 'ArrowDown':
+    }
+
+    chooseBottomPicture() {
                     this.gameSession.submitResponse({
                         top: false,
                         match: this.pictureStage!.bottomCandidate.match,
@@ -111,11 +126,9 @@ export class PictureLoopComponent implements OnInit, OnDestroy {
                         bottomImage: this.pictureStage!.bottomCandidate,
                         timeToChoiceMillis: Date.now() - this.timeMillisCandidatesShown
                     })
-                    break;
-            }
-        }
+    }
 
-        if (this.infoStage !== null && keyCode === 'Space') {
+    progressInfoStage() {
             this.gameSession.submitResponse({
                 top: false,
                 match: 0,
@@ -133,7 +146,6 @@ export class PictureLoopComponent implements OnInit, OnDestroy {
                 bottomImage: {path: '', match: 0, color: false, shape: false, count: false, size: false, filled: false},
                 timeToChoiceMillis: Date.now() - this.timeMillisCandidatesShown
             })
-        }
     }
 
 }
