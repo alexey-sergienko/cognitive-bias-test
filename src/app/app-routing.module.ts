@@ -25,6 +25,7 @@ import {NumericTableGameComponent} from "./numeric-table-game/numeric-table-game
 import {GameMenuComponent} from "./game-menu/game-menu.component";
 import {NumericTableGameMenuComponent} from "./numeric-table-game-menu/numeric-table-game-menu.component";
 import {NumericTableGameResultsComponent} from "./numeric-table-game-results/numeric-table-game-results.component";
+import { ShapesAndNumbersGameComponent } from './shapes-and-numbers-game/shapes-and-numbers-game.component';
 
 const routes: Routes = [
     {path: "startCbt", component: StartScreenComponent},
@@ -34,6 +35,7 @@ const routes: Routes = [
     {path: "results", component: ResultTableComponent},
     {path: "numericTableGame", component: NumericTableGameMenuComponent},
     {path: "numericTableGameResults", component: NumericTableGameResultsComponent},
+    {path: "shapesAndNumbersGame", component: ShapesAndNumbersGameComponent},
     {path: "menu", component: GameMenuComponent},
     {path: '', redirectTo: '/menu', pathMatch: 'full'},
     {path: '**', redirectTo: ''}

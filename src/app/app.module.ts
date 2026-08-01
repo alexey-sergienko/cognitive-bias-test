@@ -33,6 +33,7 @@ import { NumericTableGameMenuComponent } from './numeric-table-game-menu/numeric
 import { NumericTableGameSessionInfoComponent } from './numeric-table-game-session-info/numeric-table-game-session-info.component';
 import { NumericTableGameSessionSelectionComponent } from './numeric-table-game-session-selection/numeric-table-game-session-selection.component';
 import { NumericTableGameResultsComponent } from './numeric-table-game-results/numeric-table-game-results.component';
+import { ShapesAndNumbersGameComponent } from './shapes-and-numbers-game/shapes-and-numbers-game.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { NumericTableGameResultsComponent } from './numeric-table-game-results/n
     NumericTableGameMenuComponent,
     NumericTableGameSessionInfoComponent,
     NumericTableGameSessionSelectionComponent,
-    NumericTableGameResultsComponent
+    NumericTableGameResultsComponent,
+    ShapesAndNumbersGameComponent
   ],
   imports: [
     BrowserModule,

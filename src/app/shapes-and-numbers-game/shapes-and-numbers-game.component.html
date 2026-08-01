@@ -1,0 +1,82 @@
+<div style="padding-top: 5%; padding-left: 50%; margin-left: -25%;">
+    <div *ngIf="isRegistrationStage">
+        <button class="button" (click)="navigateToIndex()">Назад</button>
+        <div class="hero-body">
+    <div class="container">
+        <div class="columns is-5-tablet is-4-desktop is-3-widescreen">
+            <div class="column">
+                <form class="box">
+                    <div class="field">
+                        <label class="label">Имя</label>
+                        <div class="control">
+                            <input type="email" class="input" placeholder="ФИО"
+                                   [(ngModel)]="userName" [ngModelOptions]="{standalone: true}">
+                            <input type="email" name="age" class="input" placeholder="Возраст (в годах)" [(ngModel)]="userAge">
+                            
+                            <div class="buttons">
+                                <input type="radio" id="hand-left" name="handedness" value="left" (click)="setUserLeftHanded(true)">
+                                <label for="hand-left" class="button">Левша</label>
+                                <input type="radio" id="hand-right" name="handedness" value="right" (click)="setUserLeftHanded(false)">
+                                <label for="hand-right" class="button">Правша</label>
+                            </div>
+
+                            <div class="buttons">
+                                <label class="label">Время на запоминание: </label>
+                                <input type="radio" id="five-sec" name="memotime" value="left" (click)="setMemoTime(5000)" checked>
+                                <label for="five-sec" class="button">5 секунд</label>
+                                <input type="radio" id="thirty-sec" name="memotime" value="right" (click)="setMemoTime(30000)">
+                                <label for="thirty-sec" class="button">30 секунд</label>
+                                <input type="radio" id="one-min" name="memotime" value="right" (click)="setMemoTime(60000)">
+                                <label for="one-min" class="button">1 минута</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <button class="button is-success" (click)="onStartGame()">Начать игру</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+        <div>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>ФИО</th>
+                <th>Дата</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr *ngFor="let r of getSavedResults()">
+                <td>{{r.userName}}</td>
+                <td>{{r.dateTime}}</td>
+                <th><a class="button is-primary" (click)="downloadResults(r)">Загрузить ответы</a>
+                </th>
+            </tr>
+            </tbody>
+        </table>
+        </div>
+    </div>
+
+    <div *ngIf="!isRegistrationStage">
+    <div class="grid-container" *ngFor="let row of gameTable; index as i ">
+        <div class="" *ngFor="let tile of row">
+            <!-- Showing the values for memorization -->
+            <article *ngIf="tile.isNumeric && isShowContentStage" class="grid-item">{{tile.num}}</article>
+            <!-- Value input stage -->
+            <input *ngIf="isInputStage" [ngModelOptions]="{standalone: true}" name="tileValue" type="text" class="grid-item" [(ngModel)]="tile.input">
+            <!-- Showing the given vs. correct values -->
+            <article *ngIf="tile.isNumeric && isResultStage" class="grid-item">
+                <span *ngIf="isCorrectInput(tile)" style="color: green">{{tile.num}}</span>
+                <span *ngIf="!isCorrectInput(tile)" style="color: red">{{tile.input ? tile.input : "N/A"}}</span>
+            </article>
+        </div>
+    </div>
+    <div style="margin-top: 10%;" class="button" *ngIf="isInputStage" (click)="onSubmit(gameTable)">Закончить</div>
+    <div style="margin-top: 10%;" class="button" *ngIf="isResultStage" (click)="navigateToGameMenu()">В меню</div>
+
+</div>
+</div>
