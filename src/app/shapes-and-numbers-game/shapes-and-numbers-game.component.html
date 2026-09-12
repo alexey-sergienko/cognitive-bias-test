@@ -19,7 +19,13 @@
                                 <input type="radio" id="hand-right" name="handedness" value="right" (click)="setUserLeftHanded(false)">
                                 <label for="hand-right" class="button">Правша</label>
                             </div>
-
+                            <div class="buttons">
+                                <label class="label">Тип таблицы: </label>
+                                <input type="radio" id="numbers-table-type" name="table-type" (click)="enableNumericTable()" checked>
+                                <label for="numbers-table-type" class="button">Числа</label>
+                                <input type="radio" id="images-table-type" name="table-type" (click)="enableImagesTable()">
+                                <label for="images-table-type" class="button">Изображения</label>
+                            </div>
                             <div class="buttons">
                                 <label class="label">Время на запоминание: </label>
                                 <input type="radio" id="five-sec" name="memotime" value="left" (click)="setMemoTime(5000)" checked>
@@ -66,6 +72,9 @@
         <div class="" *ngFor="let tile of row">
             <!-- Showing the values for memorization -->
             <article *ngIf="tile.isNumeric && isShowContentStage" class="grid-item">{{tile.num}}</article>
+            <article *ngIf="!tile.isNumeric && isShowContentStage" class="grid-item">
+                <img src="assets/shapes-and-numbers-game/{{tile.imagePath}}.gif">
+            </article>
             <!-- Value input stage -->
             <input *ngIf="isInputStage" [ngModelOptions]="{standalone: true}" name="tileValue" type="text" class="grid-item" [(ngModel)]="tile.input">
             <!-- Showing the given vs. correct values -->

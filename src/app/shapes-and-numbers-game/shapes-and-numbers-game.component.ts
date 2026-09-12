@@ -21,13 +21,25 @@ export class ShapesAndNumbersGameComponent implements OnInit {
 
   memoTimeMillis: number;
   dateTime: string;
+  isTableNumeric: boolean;
 
-  gameTable: GameTableCell[][] = [
+  gameTable: GameTableCell[][];
+
+  numericGameTable: GameTableCell[][] = [
     [
       {isNumeric: true, num: 34}, {isNumeric: true, num: 72}, {isNumeric: true, num: 45}, {isNumeric: true, num: 23},
       {isNumeric: true, num: 93}, {isNumeric: true, num: 81}, {isNumeric: true, num: 16}, {isNumeric: true, num: 62},
       {isNumeric: true, num: 82}, {isNumeric: true, num: 76}, {isNumeric: true, num: 53}, {isNumeric: true, num: 35},
       {isNumeric: true, num: 17}, {isNumeric: true, num: 54}, {isNumeric: true, num: 22}, {isNumeric: true, num: 71},
+    ],
+  ];
+
+  imagesGameTable: GameTableCell[][] = [
+    [
+      {isNumeric: false, imagePath: "train"}, {isNumeric: false, imagePath: "magpie"}, {isNumeric: false, imagePath: "magpie"}, {isNumeric: false, imagePath: "horse"},
+      {isNumeric: false, imagePath: "strawberry"}, {isNumeric: false, imagePath: "books"}, {isNumeric: false, imagePath: "boat"}, {isNumeric: false, imagePath: "butterfly"},
+      {isNumeric: false, imagePath: "zebra"}, {isNumeric: false, imagePath: "globe"}, {isNumeric: false, imagePath: "house"}, {isNumeric: false, imagePath: "palm"},
+      {isNumeric: false, imagePath: "pen"}, {isNumeric: false, imagePath: "pig"}, {isNumeric: false, imagePath: "mushroom"}, {isNumeric: false, imagePath: "crab"},
     ]
   ];
 
@@ -38,6 +50,8 @@ export class ShapesAndNumbersGameComponent implements OnInit {
     this.isResultStage = false;
     this.memoTimeMillis = 5000;
     this.dateTime = "";
+    this.isTableNumeric = true;
+    this.gameTable = this.numericGameTable;
   }
 
   ngOnInit(): void {           
@@ -49,6 +63,16 @@ export class ShapesAndNumbersGameComponent implements OnInit {
 
   setMemoTime(millis: number) {
     this.memoTimeMillis = millis;
+  }
+
+  enableNumericTable() {
+    this.isTableNumeric = true;
+    this.gameTable = this.numericGameTable;
+  }
+
+  enableImagesTable() {
+    this.isTableNumeric = false;
+    this.gameTable = this.imagesGameTable;
   }
 
   onStartGame() {
