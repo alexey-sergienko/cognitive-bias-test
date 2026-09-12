@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {timer} from "rxjs";
-import {Router} from "@angular/router";
-import {LocalStorageService} from "../local-storage.service";
-import {saveAs} from "file-saver";
+import { timer } from "rxjs";
+import { Router } from "@angular/router";
+import { LocalStorageService } from "../local-storage.service";
+import { saveAs } from "file-saver";
 
 @Component({
   selector: 'app-shapes-and-numbers-game',
@@ -27,19 +27,263 @@ export class ShapesAndNumbersGameComponent implements OnInit {
 
   numericGameTable: GameTableCell[][] = [
     [
-      {isNumeric: true, num: 34}, {isNumeric: true, num: 72}, {isNumeric: true, num: 45}, {isNumeric: true, num: 23},
-      {isNumeric: true, num: 93}, {isNumeric: true, num: 81}, {isNumeric: true, num: 16}, {isNumeric: true, num: 62},
-      {isNumeric: true, num: 82}, {isNumeric: true, num: 76}, {isNumeric: true, num: 53}, {isNumeric: true, num: 35},
-      {isNumeric: true, num: 17}, {isNumeric: true, num: 54}, {isNumeric: true, num: 22}, {isNumeric: true, num: 71},
+      { isNumeric: true, num: 34 }, { isNumeric: true, num: 72 }, { isNumeric: true, num: 45 }, { isNumeric: true, num: 23 },
+      { isNumeric: true, num: 93 }, { isNumeric: true, num: 81 }, { isNumeric: true, num: 16 }, { isNumeric: true, num: 62 },
+      { isNumeric: true, num: 82 }, { isNumeric: true, num: 76 }, { isNumeric: true, num: 53 }, { isNumeric: true, num: 35 },
+      { isNumeric: true, num: 17 }, { isNumeric: true, num: 54 }, { isNumeric: true, num: 22 }, { isNumeric: true, num: 71 },
     ],
   ];
 
   imagesGameTable: GameTableCell[][] = [
     [
-      {isNumeric: false, imagePath: "train"}, {isNumeric: false, imagePath: "magpie"}, {isNumeric: false, imagePath: "magpie"}, {isNumeric: false, imagePath: "horse"},
-      {isNumeric: false, imagePath: "strawberry"}, {isNumeric: false, imagePath: "books"}, {isNumeric: false, imagePath: "boat"}, {isNumeric: false, imagePath: "butterfly"},
-      {isNumeric: false, imagePath: "zebra"}, {isNumeric: false, imagePath: "globe"}, {isNumeric: false, imagePath: "house"}, {isNumeric: false, imagePath: "palm"},
-      {isNumeric: false, imagePath: "pen"}, {isNumeric: false, imagePath: "pig"}, {isNumeric: false, imagePath: "mushroom"}, {isNumeric: false, imagePath: "crab"},
+      {
+        isNumeric: false,
+        imagePath: "train",
+        expectedImageDescriptions: [
+          "поезд", "поез", "поездд",
+          "вагон", "вагонн",
+          "паровоз", "паравоз",
+          "электричка", "электричкаа",
+          "состав", "соства",
+          "локомотив", "локамотив",
+          "жд поезд", "ждпоезд"
+        ]
+      },
+      {
+        isNumeric: false,
+        imagePath: "magpie",
+        expectedImageDescriptions: [
+          "сорока", "сороко", "сорокаа",
+          "птица", "птицаа", "птитца",
+          "ворона", "варона", "воронна",
+          "ворон", "варон",
+          "птичка", "птичька",
+          "пернатая", "пернатое"
+        ]
+      },
+      {
+        isNumeric: false,
+        imagePath: "flower",
+        expectedImageDescriptions: [
+          "цветок", "цветоок", "цветокк",
+          "цветы", "цвети", "цветыы",
+          "цветочек", "цветочик",
+          "растение", "расстение", "растенее",
+          "цветение", "цветеньие",
+          "бутон", "бутонн",
+          "цветочек"
+        ]
+      },
+      {
+        isNumeric: false,
+        imagePath: "horse",
+        expectedImageDescriptions: [
+          "лошадь", "лошад", "лошать", "лошдь",
+          "конь", "кон", "коонь",
+          "лошадка", "лошатка",
+          "лошадка",
+          "жеребец", "жеребецц",
+          "кобыла", "кабыла",
+          "жеребенок", "жеребёнок", "жеребенокк",
+          "жеребёнок"
+        ]
+      },
+      {
+        isNumeric: false,
+        imagePath: "strawberry",
+        expectedImageDescriptions: [
+          "клубника", "клубнка", "клубнника", "клубникаа",
+          "ягода", "ягодаа", "ягодда",
+          "ягодка", "яготка",
+          "земляника", "земляниика", "земленика",
+          "клубничка", "клубничька",
+          "клубничная ягода"
+        ]
+      },
+      {
+        isNumeric: false,
+        imagePath: "books",
+        expectedImageDescriptions: [
+          "книги", "книгиы", "книги",
+          "книга", "книгаа", "книна",
+          "учебники", "учебнки", "учебникии",
+          "учебник", "учебникк",
+          "ежедневники", "ежедневникки", "ежедневникии",
+          "ежедневник", "ежедненик",
+          "литература", "литеретура",
+          "издания", "изданя",
+          "тома", "томмы",
+          "книжки", "книжкии", "книшки",
+          "книжка", "книшка"
+        ]
+      },
+      {
+        isNumeric: false,
+        imagePath: "boat",
+        expectedImageDescriptions: [
+          "лодка", "лодко", "лоддка", "лодкаа",
+          "корабль", "карабль", "кораб", "корабльь",
+          "судно", "судноо", "судно",
+          "парусник", "парусникк", "парустник",
+          "гондола", "гонддола", "гондало",
+          "шлюпка", "шлюпко", "шлюппка",
+          "яхта", "яхтаа", "яхтта",
+          "катер", "каттер",
+          "баржа", "баржаа",
+          "плот", "плотт",
+          "каноэ", "каное", "каноэ",
+          "байдарка", "байдаркаа",
+          "моторная лодка", "моторная лоддка",
+          "кораблик", "корабликк",
+          "лодочка", "лодочька"
+        ]
+      },
+      {
+        isNumeric: false,
+        imagePath: "butterfly",
+        expectedImageDescriptions: [
+          "бабочка", "бабачка", "баббочка", "бабочкаа",
+          "капустница", "капустнитца", "капустницаа",
+          "мотылек", "мотылёк", "матылек", "матылёк", "мотылекк",
+          "мотылёкк",
+          "бабочка капустница",
+          "насекомое", "насикомае", "насекомоее",
+          "букашка", "бугашка",
+          "чешуекрылое", "чешуикрылое"
+        ]
+      },
+      {
+        isNumeric: false,
+        imagePath: "zebra",
+        expectedImageDescriptions: [
+          "зебра", "зебро", "зеббра", "зебраа",
+          "марти", "мартиi", "мартиы",
+          "лошадь", "лошад", "лошать",
+          "лошадка", "лошатка",
+          "животное", "живатное", "животноее",
+          "зеброчка", "зеброчкаа",
+          "полосатая лошадь", "полосатая лошать",
+          "полосатое животное", "полосатое жевотное"
+        ]
+      },
+      {
+        isNumeric: false,
+        imagePath: "globe",
+        expectedImageDescriptions: [
+          "глобус", "глобусс", "глобос",
+          "земля", "земла", "земмля", "земляа",
+          "планета", "планетаа", "планета",
+          "шар", "шаар", "шарр",
+          "сфера", "сфэра", "сффера",
+          "земной шар", "земнои шар", "земнойшар",
+          "модель земли", "модель землли",
+          "карта", "картаа",
+          "карта мира", "картаа мира",
+          "мир", "миир"
+        ]
+      },
+      {
+        isNumeric: false,
+        imagePath: "house",
+        expectedImageDescriptions: [
+          "лошадь", "лошад", "лошать",
+          "конь", "кон", "коонь",
+          "дом", "доом", "домм",
+          "домик", "домикк", "домиек",
+          "жилье", "жильё", "жылье",
+          "здание", "зданее", "здпние",
+          "строение", "строениее", "строинее",
+          "коттедж", "котедж", "коттэдж",
+          "жилище", "жилищее",
+          "особняк", "особнякк",
+          "хата", "хатаа",
+          "домишко", "домишка"
+        ]
+      },
+      {
+        isNumeric: false,
+        imagePath: "palm",
+        expectedImageDescriptions: [
+          "пальма", "палма", "пальмаа", "пальмма",
+          "кокос", "кокосс", "какаос",
+          "дерево", "деревоo", "деревоа", "деревво",
+          "пальмовое дерево", "пальмовое деревоо",
+          "кокосовая пальма", "кокосавая пальма",
+          "тропическое дерево", "тропическое деревво",
+          "растение", "расстение", "растенее",
+          "пальмочка", "пальмачка",
+          "кокосовая пальма"
+        ]
+      },
+      {
+        isNumeric: false,
+        imagePath: "pen",
+        expectedImageDescriptions: [
+          "ручка", "ручко", "руччка", "ручкаа",
+          "фломастер", "фломастерр", "фламастер", "фломастир",
+          "маркер", "маркерр", "маркер",
+          "ручка шариковая", "шариковая ручка", "шариковая ручька",
+          "авторучка", "автаручка",
+          "письменная ручка", "писменная ручка",
+          "канцелярская ручка", "канцеляркая ручка",
+          "перо", "пиро",
+          "стержень", "стерженьь"
+        ]
+      },
+      {
+        isNumeric: false,
+        imagePath: "pig",
+        expectedImageDescriptions: [
+          "свинья", "свиня", "свиньяя", "свинья",
+          "поросенок", "поросёнок", "поросеннок", "паросенок", "паросёнок",
+          "поросенокк", "поросёнокк",
+          "минипиг", "мини-пиг", "мини пиг", "минипигг",
+          "свинка", "свинкаа", "свинька",
+          "поросенок", "поросёнок",
+          "кабан", "кабанн",
+          "кабанчик", "кабанчек",
+          "хрюшка", "хрюшька",
+          "хрюша", "хрюшаа",
+          "свин", "свинн"
+        ]
+      },
+      {
+        isNumeric: false,
+        imagePath: "mushroom",
+        expectedImageDescriptions: [
+          "гриб", "грибб", "грибб",
+          "мухомор", "мухоморр", "мухомар",
+          "грибы", "гриби", "гриббы",
+          "мухоморы", "мухомари", "мухоморыы",
+          "поганка", "паганка", "поганкаа",
+          "поганки", "поганкии",
+          "грибок", "грибокк",
+          "грибочек", "грибочик",
+          "грибочки", "грибочкии",
+          "грибница", "грибнитца",
+          "шляпка", "шляпька",
+          "лесной гриб", "леснои гриб",
+          "красный мухомор", "красный мухамор",
+          "ядовитый гриб", "ядовитыйгриб"
+        ]
+      },
+      {
+        isNumeric: false,
+        imagePath: "crab",
+        expectedImageDescriptions: [
+          "краб", "крабб", "краап",
+          "лобстер", "лобстерр", "лапстер",
+          "рак", "раак", "ракк",
+          "скорпион", "скорпиён", "скарпион", "скорпионн",
+          "красти-крабс", "красти крабс", "красти краб",
+          "крабс", "крабик", "крабикк",
+          "ракообразное", "ракообразноее", "ракообразное",
+          "морской рак", "морской раак",
+          "морской краб", "морской крааб",
+          "ракообразный", "ракообразныи",
+          "морское животное", "морское жевотное"
+        ]
+      }
     ]
   ];
 
@@ -54,7 +298,7 @@ export class ShapesAndNumbersGameComponent implements OnInit {
     this.gameTable = this.numericGameTable;
   }
 
-  ngOnInit(): void {           
+  ngOnInit(): void {
   }
 
   setUserLeftHanded(isLeftHanded: boolean) {
@@ -76,9 +320,9 @@ export class ShapesAndNumbersGameComponent implements OnInit {
   }
 
   onStartGame() {
-    if (this.userName && this.userAge && typeof(this.isUserLeftHanded) === 'boolean') {
+    if (this.userName && this.userAge && typeof (this.isUserLeftHanded) === 'boolean') {
       this.dateTime = new Date().toISOString(),
-      this.isRegistrationStage = false;
+        this.isRegistrationStage = false;
       this.isShowContentStage = true;
       timer(this.memoTimeMillis).subscribe(() => {
         this.isShowContentStage = false;
@@ -108,7 +352,10 @@ export class ShapesAndNumbersGameComponent implements OnInit {
   }
 
   isCorrectInput(cell: GameTableCell) {
-    return cell.isNumeric && (cell.num === Number(cell.input))
+    if (cell.isNumeric) {
+      return cell.isNumeric && (cell.num === Number(cell.input))
+    }
+    return cell.input ? (cell.expectedImageDescriptions?.includes(cell.input.toLocaleLowerCase())) : false;
   }
 
   navigateToIndex() {
@@ -132,8 +379,8 @@ export class ShapesAndNumbersGameComponent implements OnInit {
   }
 
   downloadResults(result: GameResults) {
-    let csv = this.toCsv(this.numericSessionResults(result));
-    let blob = new Blob([csv], {type: "text/plain;charset=utf-8"})
+    let csv = result.table[0][0].isNumeric ? this.toCsv(this.numericSessionResults(result)) : this.toCsv(this.imageSessionResults(result));
+    let blob = new Blob([csv], { type: "text/plain;charset=utf-8" })
     saveAs(blob, `${result.userName}-${result.dateTime}.csv`)
   }
 
@@ -148,11 +395,41 @@ export class ShapesAndNumbersGameComponent implements OnInit {
         }
       }
     }
-    
+
     let correctAnswers = 0;
     for (const row of results.table) {
       for (const cell of row) {
         if (correctNumbers.has(Number(cell.input))) {
+          correctAnswers += 1;
+        }
+      }
+    }
+
+    return {
+      correctAnswersIgnoringOrder: correctAnswers,
+      correctAnswersOrdered: correctAnswersOrdered,
+      gameResults: results
+    }
+  }
+
+  private imageSessionResults(results: GameResults): DownloadableResults {
+    let allCorrectOptions = new Set<string>();
+    let correctAnswersOrdered = 0;
+    let correctAnswers = 0;
+
+    for (const row of results.table) {
+      for (const cell of row) {
+        console.log(cell)
+        cell.expectedImageDescriptions?.forEach(d => allCorrectOptions.add(d));
+        if (cell.expectedImageDescriptions?.includes(cell.input?.toLocaleLowerCase() ?? "N/A")) {
+          correctAnswersOrdered += 1;
+        }
+      }
+    }
+
+    for (const row of results.table) {
+      for (const cell of row) {
+        if (allCorrectOptions.has(cell.input?.toLocaleLowerCase() ?? "N/A")) {
           correctAnswers += 1;
         }
       }
@@ -181,7 +458,7 @@ export interface GameTableCell {
   isNumeric: boolean
   num?: number
   imagePath?: string
-  expectedImageDescriptions?: Set<string>
+  expectedImageDescriptions?: string[]
   input?: string
 }
 

@@ -82,6 +82,10 @@
                 <span *ngIf="isCorrectInput(tile)" style="color: green">{{tile.num}}</span>
                 <span *ngIf="!isCorrectInput(tile)" style="color: red">{{tile.input ? tile.input : "N/A"}}</span>
             </article>
+            <article *ngIf="!tile.isNumeric && isResultStage" class="grid-item">
+                <span *ngIf="isCorrectInput(tile)" style="color: green">{{tile.input}}</span>
+                <span *ngIf="!isCorrectInput(tile)" style="color: red">{{tile.input ? tile.input : "N/A"}}</span>
+            </article>
         </div>
     </div>
     <div style="margin-top: 10%;" class="button" *ngIf="isInputStage" (click)="onSubmit(gameTable)">Закончить</div>
