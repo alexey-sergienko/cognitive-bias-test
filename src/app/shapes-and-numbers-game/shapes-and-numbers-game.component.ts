@@ -115,9 +115,13 @@ export class ShapesAndNumbersGameComponent implements OnInit {
 
   private numericSessionResults(results: GameResults): DownloadableResults {
     let correctNumbers: Set<number> = new Set<number>();
+    let correctAnswersOrdered = 0
     for (const row of results.table) {
       for (const cell of row) {
         correctNumbers.add(cell.num!!);
+        if (cell.num!! === Number(cell.input)) {
+          correctAnswersOrdered += 1;
+        }
       }
     }
     
@@ -132,14 +136,14 @@ export class ShapesAndNumbersGameComponent implements OnInit {
 
     return {
       correctAnswersIgnoringOrder: correctAnswers,
-      correctAnswerPercentageIgnoringOrder: Math.trunc((correctAnswers / 16)*100),
+      correctAnswersOrdered: correctAnswersOrdered,
       gameResults: results
     }
   }
 
   private toCsv(result: DownloadableResults) {
-    let header = "Дата;ФИО;Возраст;Пользователь левша;Время на запоминание (секунд);Количество правильных ответов;Процент правильных ответов от общего количества;\n"
-    let aggregatedDataLine = `${result.gameResults.dateTime};${result.gameResults.userName};${result.gameResults.userAge};${result.gameResults.isUserLeftHanded};${result.gameResults.memorizationTimeSeconds};${result.correctAnswersIgnoringOrder};${result.correctAnswerPercentageIgnoringOrder}\n`;
+    let header = "Дата;ФИО;Возраст;Пользователь левша;Время на запоминание (секунд);Количество правильных ответов (безотносительно порядка);Правильных ответов (включая порядок);\n"
+    let aggregatedDataLine = `${result.gameResults.dateTime};${result.gameResults.userName};${result.gameResults.userAge};${result.gameResults.isUserLeftHanded};${result.gameResults.memorizationTimeSeconds};${result.correctAnswersIgnoringOrder}/16;${result.correctAnswersOrdered}/16\n`;
     let originalTableHeader = "\n Оригинальная таблица\n";
     let originalTable = result.gameResults.table.map(row => row.map(col => col.isNumeric ? col.num : col.imagePath).join(";")).join("\n");
     let inputTableHeader = "\n Введенная пользователем таблица\n";
@@ -168,6 +172,6 @@ export interface GameResults {
 
 export interface DownloadableResults {
   correctAnswersIgnoringOrder: number
-  correctAnswerPercentageIgnoringOrder: number
+  correctAnswersOrdered: number
   gameResults: GameResults
 }
