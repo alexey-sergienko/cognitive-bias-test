@@ -384,6 +384,12 @@ export class ShapesAndNumbersGameComponent implements OnInit {
     saveAs(blob, `${result.userName}-${result.dateTime}.csv`)
   }
 
+  deleteResult(result: GameResults) {
+    let existingResults = this.getSavedResults();
+    let filteredResults = existingResults.filter(r => r.dateTime !== result.dateTime);
+    this.saveResults(filteredResults);
+  }
+
   private numericSessionResults(results: GameResults): DownloadableResults {
     let correctNumbers: Set<number> = new Set<number>();
     let correctAnswersOrdered = 0
