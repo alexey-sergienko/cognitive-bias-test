@@ -21,6 +21,10 @@
     text-align: center;
     aspect-ratio: 1;
     overflow: hidden;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 article.is-primary {
